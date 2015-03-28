@@ -2,15 +2,16 @@
 
 namespace Igorw\Silex;
 
-use Toml\Parser;
-
 class ChainConfigDriver implements ConfigDriver
 {
+	/**
+	 * @var ConfigDriver[]
+	 */
     private $drivers;
 
     public function __construct(array $drivers)
     {
-        $this->drivers = $drivers;
+        $this->drivers = array_map(function(ConfigDriver $driver) { return $driver; }, $drivers);
     }
 
     public function load($filename)
